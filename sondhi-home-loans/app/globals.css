@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #14284b;
+  --color-navy-dark: #0d1c37;
+  --color-ink: #1c2533;
+  --color-muted: #566176;
+  --color-wash: #f1f4f8;
+  --color-line: #d5dbe5;
+  --color-brass: #8f6520;
+  --color-gold: #e3c17c;
+  --font-sans: var(--font-public-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: var(--font-source-serif), Georgia, serif;
+}
+
+@layer base {
+  body { @apply bg-white text-ink; }
+  h1, h2, h3 { @apply font-serif font-semibold leading-[1.15] text-balance; }
+  :focus-visible { @apply outline-3 outline-offset-2 outline-brass; }
+}
+
+@utility wrap {
+  @apply mx-auto w-full max-w-[1120px] px-4;
+}
+
+@utility h2 {
+  @apply text-[clamp(1.5rem,3vw,2.125rem)];
+}

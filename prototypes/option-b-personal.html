@@ -1,0 +1,168 @@
+<title>Sondhi Personal Prototype</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Figtree:wght@400;600&display=swap">
+<style>
+/* Layout: person-first. Tall portrait beside a first-person greeting, then a signed letter, reviews up high, contact last. Left aligned, generous whitespace. */
+:root{
+  --green:#1f4d3a; --ink:#18231d; --muted:#55635b; --paper:#ffffff; --mist:#eef4ef; --line:#d3ded6; --poppy:#e0a019;
+  --display:"Bricolage Grotesque","Trebuchet MS",sans-serif; --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.6 var(--body)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.1;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(2.2rem,5.4vw,3.9rem)} h2{font-size:clamp(1.6rem,3.2vw,2.3rem)} h3{font-size:1.2rem}
+p{margin:0;max-width:60ch} a{color:inherit}
+:focus-visible{outline:3px solid var(--poppy);outline-offset:3px}
+.proto{background:#fff4d6;color:#4a3a10;font-size:.85rem;padding-block:8px}
+.top .wrap{display:flex;flex-wrap:wrap;gap:10px 24px;align-items:center;justify-content:space-between;padding-block:20px}
+.brand{font:600 1.15rem var(--display);color:var(--green)}
+nav{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:.95rem} nav a{text-decoration:none} nav a:hover{text-decoration:underline}
+.btn{display:inline-block;background:var(--green);color:#fff;font:600 1rem var(--body);text-decoration:none;padding:14px 24px;border-radius:999px;border:0;cursor:pointer}
+.btn:hover{background:#173b2c}
+.hero .wrap{display:grid;grid-template-columns:340px 1fr;gap:56px;align-items:center;padding-block:32px 72px}
+.portrait{aspect-ratio:3/4;max-width:100%;background:var(--mist);border-radius:170px 170px 12px 12px;display:grid;place-items:center;text-align:center;color:var(--muted);font-size:.85rem}
+.portrait b{display:block;font:600 4.5rem var(--display);color:var(--green)}
+.hero p{font-size:1.2rem;color:var(--muted);margin-top:22px}
+.acts{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;margin-top:30px}
+.tel{font-weight:600;user-select:all}
+.creds{margin-top:30px;font-size:.9rem;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 22px}
+.creds b{color:var(--ink)}
+section .wrap{padding-block:72px}
+.mist{background:var(--mist)}
+.letter{display:grid;grid-template-columns:1fr 300px;gap:64px;align-items:start}
+.letter p{font-size:1.1rem} .letter p+p{margin-top:16px}
+.sig{font:600 1.5rem var(--display);color:var(--green);margin-top:24px}
+.sig small{display:block;font:400 .9rem var(--body);color:var(--muted)}
+.nums{display:grid;gap:22px;border-left:3px solid var(--poppy);padding-left:24px}
+.nums strong{display:block;font:600 2.4rem/1 var(--display);color:var(--green);font-variant-numeric:tabular-nums}
+.nums span{color:var(--muted);font-size:.95rem}
+.sub{color:var(--muted);margin-top:12px}
+.tag{display:inline-block;font:400 .75rem var(--body);letter-spacing:0;background:#fff4d6;color:#4a3a10;padding:2px 9px;border-radius:99px;vertical-align:middle}
+.reviews{display:grid;grid-template-columns:1.3fr 1fr;gap:28px;margin-top:32px}
+figure{margin:0;background:var(--paper);border-radius:12px;padding:28px}
+.reviews figure:first-child{grid-row:span 2;display:flex;flex-direction:column;justify-content:center}
+blockquote{margin:0;font-size:1.05rem} .reviews figure:first-child blockquote{font:600 1.6rem/1.3 var(--display)}
+figcaption{margin-top:14px;font-size:.9rem;color:var(--muted)}
+.stars{color:var(--poppy);font-size:1rem;letter-spacing:2px}
+.help{display:grid;grid-template-columns:repeat(2,1fr);gap:0 56px;margin-top:28px}
+.help div{padding-block:22px;border-bottom:1px solid var(--line)}
+.help p{color:var(--muted);font-size:1rem;margin-top:6px}
+.stories{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px}
+.story{background:var(--paper);border-radius:12px;padding:24px}
+.story .where{font-size:.9rem;color:var(--green);font-weight:600}
+.story h3{margin-top:6px} .story p{color:var(--muted);font-size:.97rem;margin-top:8px}
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.bignum{font:600 clamp(1.8rem,4vw,2.6rem) var(--display);color:var(--green);margin-top:20px;user-select:all}
+form{display:grid;gap:14px;min-width:0}
+label{display:grid;gap:5px;font-size:.9rem;font-weight:600}
+input,textarea{font:inherit;padding:12px 14px;border:1px solid #98a89e;border-radius:10px;background:#fff;color:var(--ink);width:100%}
+.done{background:var(--mist);color:var(--green);padding:12px 14px;border-radius:10px;font-size:.92rem}
+footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line)}
+footer .wrap{padding-block:32px;display:grid;gap:10px} footer p{max-width:90ch}
+.eho{display:inline-flex;align-items:center;gap:8px}
+@media(max-width:820px){
+  .hero .wrap,.letter,.contact,.reviews,.help,.stories{grid-template-columns:1fr;gap:28px}
+  .help{gap:0} .portrait{max-width:240px} section .wrap{padding-block:48px} .hero .wrap{padding-block:16px 48px}
+}
+</style>
+
+<div class="proto"><div class="wrap">Prototype. License numbers, figures, reviews, client stories and contact details are placeholders until Avinash supplies the real ones.</div></div>
+
+<header class="top"><div class="wrap">
+  <div class="brand">Avinash Sondhi</div>
+  <nav aria-label="Main"><a href="#story">My story</a><a href="#reviews">Reviews</a><a href="#help">How I help</a><a href="#clients">Client stories</a></nav>
+  <a class="btn" href="#contact" style="padding:10px 20px">Book a free call</a>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div class="portrait"><div><b>AS</b>Friendly portrait photo</div></div>
+  <div>
+    <h1>Hi, I’m Avinash. I help California families get the right home loan.</h1>
+    <p>Buying a home is the biggest financial decision most people make. I’ll walk you through it in plain English, answer my own phone, and tell you the truth about what you can afford.</p>
+    <div class="acts"><a class="btn" href="#contact">Book a free call</a><span>or call or text <span class="tel">(555) 010-0142</span></span></div>
+    <div class="creds"><span><b>NMLS</b> #0000000</span><span><b>CA DRE</b> #00000000</span><span>Licensed mortgage loan originator, California</span></div>
+  </div>
+</div></div>
+
+<section id="story" class="mist"><div class="wrap">
+  <div class="letter">
+    <div>
+      <h2>Why I do this work</h2>
+      <p class="sub" style="margin-bottom:20px">A short note from me to you.</p>
+      <p>I got into lending in 2010, right after watching friends and neighbors lose homes to loans nobody had explained to them. I decided then that my clients would always understand exactly what they were signing.</p>
+      <p>Fifteen years later that is still how I work. I show you every option side by side, I put every cost in writing, and if a loan isn’t right for you I’ll say so, even when it costs me the deal.</p>
+      <p>I live and work here in California. My clients are my neighbors, and most of them come to me because a friend or their agent told them to call.</p>
+      <div class="sig">Avinash Sondhi<small>Mortgage Loan Originator</small></div>
+    </div>
+    <div class="nums">
+      <div><strong>15+</strong><span>years helping borrowers</span></div>
+      <div><strong>600+</strong><span>families in their homes</span></div>
+      <div><strong>4.9 / 5</strong><span>average client rating</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="reviews" class="mist" style="border-top:1px solid var(--line)"><div class="wrap">
+  <h2>What my clients say <span class="tag">Sample reviews</span></h2>
+  <div class="reviews">
+    <figure><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote>“Avinash treated us like family. He picked up every call, explained every page, and we closed two days early.”</blockquote><figcaption>Priya and Daniel, first-time buyers in Elk Grove</figcaption></figure>
+    <figure><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote>“My bank turned me down for being self-employed. Avinash found a way and kept every promise.”</blockquote><figcaption>Marcus, business owner in Fremont</figcaption></figure>
+    <figure><div class="stars" aria-label="5 out of 5 stars">★★★★★</div><blockquote>“As a veteran I didn’t know I could buy with nothing down. He made the VA loan easy.”</blockquote><figcaption>Elena, Navy veteran in San Diego</figcaption></figure>
+  </div>
+</div></section>
+
+<section id="help"><div class="wrap">
+  <h2>How I can help</h2>
+  <p class="sub">Tell me where you are, and I’ll tell you which loan fits.</p>
+  <div class="help">
+    <div><h3>Buying your first home</h3><p>FHA loans, CalHFA down payment help, and a pre-approval that makes your offer stronger.</p></div>
+    <div><h3>Moving up or relocating</h3><p>Conventional and jumbo loans for California’s higher-priced markets.</p></div>
+    <div><h3>Refinancing</h3><p>Lower your payment, pay off sooner, or use your equity for a remodel.</p></div>
+    <div><h3>Veterans and service members</h3><p>VA loans with no down payment for those who qualify.</p></div>
+    <div><h3>Self-employed</h3><p>Bank-statement loans when tax returns don’t show the full picture.</p></div>
+    <div><h3>Buying a rental</h3><p>Investor loans that qualify on the property’s rent.</p></div>
+  </div>
+</div></section>
+
+<section id="clients" class="mist"><div class="wrap">
+  <h2>A few recent closings <span class="tag">Sample stories</span></h2>
+  <div class="stories">
+    <div class="story"><div class="where">San Jose, jumbo purchase</div><h3>Won the house in 21 days</h3><p>A fast close helped a young family beat two higher offers.</p></div>
+    <div class="story"><div class="where">Irvine, FHA loan</div><h3>First condo with 3.5% down</h3><p>The seller covered closing costs, so savings stayed in the bank.</p></div>
+    <div class="story"><div class="where">Sacramento, investor loan</div><h3>A duplex without tax returns</h3><p>Qualified on the rental income the property already earned.</p></div>
+  </div>
+</div></section>
+
+<section id="contact"><div class="wrap">
+  <div class="contact">
+    <div>
+      <h2>Let’s talk about your home</h2>
+      <p class="sub">The first call is free and takes about 20 minutes. No credit check, no pressure. I reply within one business day.</p>
+      <div class="bignum">(555) 010-0142</div>
+      <p class="sub" style="user-select:all">avinash@example.com</p>
+    </div>
+    <form id="lead" novalidate>
+      <label for="b-name">Your name<input id="b-name" name="name" autocomplete="name" required></label>
+      <label for="b-phone">Phone<input id="b-phone" name="phone" type="tel" autocomplete="tel" required></label>
+      <label for="b-msg">What are you hoping to do?<textarea id="b-msg" name="msg" rows="3" placeholder="Buying in Sacramento this spring, not sure what we qualify for"></textarea></label>
+      <button class="btn" type="submit">Book a free call</button>
+      <p class="done" id="b-done" role="status" hidden></p>
+    </form>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p><b>Avinash Sondhi</b>, Mortgage Loan Originator. NMLS #0000000. California DRE License #00000000. Verify at <a href="https://www.nmlsconsumeraccess.org" target="_blank" rel="noopener">nmlsconsumeraccess.org</a>.</p>
+  <p>This is not a commitment to lend. Programs, rates, terms and conditions are subject to change without notice. All loans are subject to credit and property approval. Not all applicants will qualify.</p>
+  <p class="eho"><svg width="26" height="24" viewBox="0 0 26 24" aria-hidden="true"><path d="M13 1 1 9v2h2v12h20V11h2V9z" fill="#55635b"/><rect x="8" y="12" width="10" height="2.4" fill="#fff"/><rect x="8" y="16.5" width="10" height="2.4" fill="#fff"/></svg>Equal Housing Opportunity</p>
+</div></footer>
+
+<script>
+document.getElementById('lead').addEventListener('submit',function(e){
+  e.preventDefault();
+  var d=document.getElementById('b-done'),n=this.elements.name.value.trim(),p=this.elements.phone.value.trim();
+  d.hidden=false;
+  d.textContent=(n&&p)?'Call booked. This is a prototype, so nothing was actually sent.':'Add your name and phone number so I can call you back.';
+});
+</script>
